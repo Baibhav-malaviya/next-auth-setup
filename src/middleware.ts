@@ -5,12 +5,13 @@ import { NextResponse } from "next/server";
 const isPublicRoute = createRouteMatcher([
 	"/sign-in",
 	"/sign-up",
+	"/",
 	//! we can add more public routes here
 ]);
 
 // Define public API routes that don't require authentication
 const isPublicApiRoute = createRouteMatcher([
-	"/api/ask",
+	"/api/user-data",
 	//! we can add more public API routes here
 ]);
 
@@ -18,12 +19,12 @@ const isPublicApiRoute = createRouteMatcher([
 export default clerkMiddleware((auth, req) => {
 	const { userId } = auth();
 	const currentUrl = new URL(req.url);
-	const isHomePage = currentUrl.pathname === "/browse-courses"; // home route is available to all the users
+	const isHomePage = currentUrl.pathname === "/"; // home route is available to all the users but it should include in publicRoute
 	const isApiRequest = currentUrl.pathname === "/api";
 
 	// Redirect authenticated users to home page if they're on a public route
 	if (userId && isPublicRoute(req) && !isHomePage) {
-		return NextResponse.redirect(new URL("/home", req.url));
+		return NextResponse.redirect(new URL("/", req.url));
 	}
 
 	// Handle unauthenticated users

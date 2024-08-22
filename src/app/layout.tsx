@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-import { UserButton } from "@clerk/nextjs";
-import Container from "@/components/myComponents/Container";
-import Link from "next/link";
+import Navbar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,14 +22,9 @@ export default function RootLayout({
 			<html lang="en">
 				<body className={inter.className}>
 					<header className="">
-						<Container className="p-2 bg-violet-500/30 flex items-center justify-between">
-							<Link href={"/"}>
-								<h1 className="text-3xl font-bold">Logo</h1>
-							</Link>
-							<UserButton />
-						</Container>
+						<Navbar />
 					</header>
-					<main className="flex min-h-screen flex-col items-center justify-between ">
+					<main className="flex min-h-screen flex-col items-center justify-between mt-16">
 						{children}
 					</main>
 				</body>
